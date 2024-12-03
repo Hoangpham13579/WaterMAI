@@ -94,14 +94,14 @@ Please install Pytorch GPU appropriate with your hardware configuration.
 ## Evaluate
 To perform the evaluation of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's test set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`evaluate_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/evaluate_coir_condwi_cognirndwi.ipynb) notebook in the `notebooks` folder
 #### Prerequisite
-1. `The path in the 1st cells` should be modified properly to sucessfully run the notebook
-2. Finish runing [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder for WaterMAI's test set
+1. `The path in the 1st cells of notebook` should be modified properly to sucessfully run the notebook
+2. Finish runing [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder for preparing WaterMAI's test set with multiple modality combinations
 
 ## Training
 To perform the training of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's train set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`train_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/train_coir_condwi_cognirndwi.ipynb) notebook in the `notebooks` folder 
 #### Prerequisite
-1. `The path in the 1st cells` should be modified properly to sucessfully run the notebook
-2. Finish runing [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder for WaterMAI's train set
+1. `The path in the 1st cells of notebook` should be modified properly to sucessfully run the notebook
+2. Finish runing [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder for preparing WaterMAI's training set with multiple modality combinations
 
 ## Reference
 [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet)
