@@ -1,6 +1,8 @@
 import argparse
 import logging
 import os
+import sys
+import joblib
 import numpy as np
 
 import torch
@@ -114,42 +116,31 @@ def evaluate(net, dataloader, device, amp):
 def get_args():
     parser = argparse.ArgumentParser(description="Evaluate the model on test data")
     parser.add_argument(
-        "--model",
-        "-m",
-        default="MODEL.pth",
-        metavar="FILE",
-        help="Specify the file in which the model is stored",
-        required=True,
+        "--model", "-m", default="MODEL.pth", metavar="FILE", help="Specify the file in which the model is stored", required=True,
     )
     parser.add_argument(
-        "--input_folder",
-        "-if",
-        metavar="INPUT_FOLDER",
-        default="",
-        help="Path to the input folder containing test images and masks",
-        required=True,
+        "--input_folder", "-if", metavar="INPUT_FOLDER", default="", help="Path to the WaterMAI_dataset folder", required=True,
     )
     parser.add_argument(
-        "--type",
-        "-t",
-        type=str,
-        default="",
-        help="Type of dataset (e.g., 'co', 'coir', 'cognirndwi', etc.)",
-        required=True,
+        "--weights", "-w", default="MODEL.pth", metavar="FILE", help="Checkpoint weights", required=True,
     )
     parser.add_argument(
-        "--num_channels",
-        "-nc",
-        type=int,
-        default=3,
-        help="Number of input channels in the model",
+        "--num_channels", "-nc", type=int, default=3, help="Number of input channels in the model",
     )
     parser.add_argument(
-        "--classes",
-        "-c",
-        type=int,
-        default=5,
-        help="Number of output classes",
+        "--type", "-t", type=str, default="", help="Type of dataset (e.g., 'co', 'coir', 'cognirndwi', etc.)", required=True,
+    )
+    parser.add_argument(
+        "--batch_size", "-b", type=int, default=2, help="size of each batch"
+    )
+    parser.add_argument(
+        "--img_size", "-is", type=int, default=640, help="image size, currently only supports 640"
+    )
+    parser.add_argument(
+        '--n_classes', '-c', type=int, default=5, help='Number of classes'
+    )
+    parser.add_argument(
+        "--val_txt", "-val", type=str, required=True, help="Path to the .txt file, containing list of image paths for validation"
     )
     return parser.parse_args()
 
@@ -157,62 +148,78 @@ if __name__ == "__main__":
     args = get_args()
     logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
-    # Initialize the model
-    inDir = args.input_folder
-
-    # Unet model
+    # Load models
     if args.model == "msnet":
-        net = MSNet(n_classes=args.n_classes)
+        model = MSNet(n_channels=args.num_channels, n_classes=args.n_classes)
     elif args.model == "rtfnet":
-        net = RTFNet(n_classes=args.n_classes)
+        model = RTFNet(n_channels=args.num_channels, n_classes=args.n_classes)
     elif args.model == "unet":
-        net = UNet(n_channels=args.num_channels, n_classes=args.n_classes, bilinear=False)
-
+        model = UNet(n_channels=args.num_channels,
+                     n_classes=args.n_classes, bilinear=False)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(memory_format=torch.channels_last)
+    model.to(device=device)
+
     logging.info(f"Loading model {args.model}")
     logging.info(f"Using device {device}")
 
-    # Load the model checkpoint
-    net.to(device=device)
-    checkpoint = torch.load(args.model, map_location=device)
-    if 'model_state_dict' in checkpoint:
-        net.load_state_dict(checkpoint['model_state_dict'])
-        mask_values = checkpoint.get('mask_values', [0, 1])
-    else:
-        net.load_state_dict(checkpoint)
-        mask_values = [0, 1] 
+    # Load weight
+    checkpoint = torch.load(args.weights, map_location=device)
+    model.load_state_dict(checkpoint['model_state_dict'])
+    mask_values = checkpoint['mask_values']
+    model.mask_values = mask_values
     logging.info("Model loaded!")
 
-    # Test dataloader
-    if args.type == 'coir':
-        dir_img = inDir + "/images/coir"
-        dir_mask = inDir + "/labels/mask_coir"
-    elif args.type == 'condwi':
-        dir_img = inDir + "/images/condwi"
-        dir_mask = inDir + "/labels/mask_condwi"
-    elif args.type == 'cognirndwi':
-        dir_img = inDir + "/images/cognirndwi"
-        dir_mask = inDir + "/labels/mask_cognirndwi"
+    # Set input folder path based on the type of dataset
+    if args.type == "co":
+        dir_img = args.input_folder + "/images/co"
+        dir_mask = args.input_folder + "/labels/masks_co"
+    elif args.type == "cognirndwi":
+        dir_img = args.input_folder + "/images/cognirndwi"
+        dir_mask = args.input_folder + "/labels/masks_cognirndwi"
+    elif args.type == "coir":
+        dir_img = args.input_folder + "/images/coir"
+        dir_mask = args.input_folder + "/labels/masks_coir"
+    elif args.type == "condwi":
+        dir_img = args.input_folder + "/images/condwi"
+        dir_mask = args.input_folder + "/labels/masks_condwi"
+    elif args.type == "gnirndwi":
+        dir_img = args.input_folder + "/images/gnirndwi"
+        dir_mask = args.input_folder + "/labels/masks_gnirndwi"
+    elif args.type == "rndwib":
+        dir_img = args.input_folder + "/images/rndwib"
+        dir_mask = args.input_folder + "/labels/masks_rndwib"
+
+    # Create the test dataset
     loader_args = dict(batch_size=args.batch_size, num_workers=os.cpu_count(), pin_memory=True)
-    # Set up the test dataset and dataloader
     test_img_dir = os.path.join(args.input_folder, "images", args.type)
     test_mask_dir = os.path.join(args.input_folder, "labels", f"mask_{args.type}")
 
+    # Calculate scale based on img_size
+    scale = min(args.img_size / 640, 1.0)  # Assuming 640 is the default/max size
+
     # Create the test dataset
-    test_dataset = BasicDataset(
-        images_dir=test_img_dir,
-        mask_dir=test_mask_dir,
-        img_size=640,
-        scale=1.0,
-        mask_suffix="", 
-        ids=None 
-    )
+    try:
+        with open(args.val_txt, 'r') as f:
+            val_ids = [line.strip() for line in f if line.strip()]
+    
+        val_dataset = BasicDataset(
+            images_dir=dir_img,
+            mask_dir=dir_mask,
+            img_size=args.img_size,
+            scale=scale,
+            mask_suffix='',
+            ids=val_ids
+        )
+    except Exception as e:
+        logging.error(f"Error creating datasets: {e}")
+        sys.exit(1)
 
-    loader_args = dict(batch_size=16, num_workers=os.cpu_count(), pin_memory=True)
-    test_loader = DataLoader(test_dataset, shuffle=False, **loader_args)
+    test_loader = DataLoader(val_dataset, shuffle=False, **loader_args)
 
+    # Evaluate the model
     dice_score, precision_value, recall_value, low_dice_batch_idx = evaluate(
-        net, test_loader, device, amp=False
+        model, test_loader, device, amp=False
     )
 
     logging.info(

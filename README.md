@@ -2,54 +2,45 @@
 
 This is the official github page of the WaterMAI dataset and benchmarking implementation described in the following paper.
 
->[Use of low-cost drones to map arbovirus vector habitats with multispectral aerial imagery](https://www.researchsquare.com/article/rs-3950831/v1).
+>[Use of low-cost drones to map arbovirus vector habitats with multispectral aerial imagery to detect water bodies]().
 
-> Pham Viet Hoang, Ngo Phuc Linh, Bui Ngoc Long, Vo Bich Hien, Thirumalaisamy P. Velavan, Tran Duc Khanh
+> Ngo Phuc Linh, Pham Viet Hoang, Bui Ngoc Long, Phan Huynh Anh Thu, Vo Bich Hien, Thirumalaisamy P. Velavan, Tran Duc Khanh
 
 ## WaterMAI Dataset Specification
-Please download the WaterMAI dataset from [**WaterMAI_dataset**](https://drive.google.com/drive/folders/1zCrWx5W28sIlagELhq2dGZcSfTzNbghP?usp=sharing) and orthomosaic images from [**WaterMAI Orthomosaic**](https://drive.google.com/drive/folders/1ibAqoicHApP8f5G7uiAym4Lti5mGdZXH?usp=sharing)
-- The structure of `train` and `test` folder are the same
-- Folder `color` and `ir` in `labels` folder are the bounding box labels (YOLO type) of WaterMAI dataset. The difference between 2 folders is only the name of each file.
+Please download the WaterMAI dataset from [**WaterMAI_dataset**](https://drive.google.com/drive/folders/1-4EVZL1kFL2F72kpPst5z-YSsYrxhxeA?usp=sharing) and orthomosaic images from [**WaterMAI Orthomosaic**](https://drive.google.com/drive/folders/1ibAqoicHApP8f5G7uiAym4Lti5mGdZXH?usp=sharing)
+<img src="./images/general_process.png" alt="drawing" width="" height=""/>
+
+- Folder `co` and `ir` in `labels` folder are the bounding box labels (YOLO type) of WaterMAI dataset. The masks of those 2 folders are the same, only the file's names are different
 - Folder `mask_co` in `labels` folder is the segmentation label mask of WaterMAI dataset.
 
 ```shell
 WaterMAI_dataset
-├── train
-│   ├── images
-│   │   ├── color
-│   │   │   ├── DJI_1010_co.jpg
-│   │   │   ├── ...
-│   │   │   └── DJI_13970_co.jpg
-│   │   └── ir
-│   │       ├── DJI_1010_ir.jpg
-│   │       ├── ...
-│   │       └── DJI_13970_ir.jpg
-│   └── labels
-│   │   ├── color
-│   │   │   ├── DJI_1010_co.txt
-│   │   │   ├── ...
-│   │   │   └── DJI_13970_co.txt
-│   │   ├── ir
-│   │   │   ├── DJI_1010_ir.txt
-│   │   │   ├── ...
-│   │   │   └── DJI_13970_ir.txt
-│   │   └── mask_co
-│   │   │   ├── DJI_1010_co.jpg
-│   │   │   ├── ...
-│   │   │   └── DJI_13970_co.jpg
-└── test
-    ├── images
-    │   ├── color
-    │   │   └── ...
-    │   └── ir
-    │   │   └── ...
-    └── labels
-        ├── color
-        │   └── ...
-        ├── ir
-        │   └── ...
-        └── mask_co
-            └── ...
+├── images
+│   ├── co
+│   │   ├── val_co.txt
+│   │   ├── train_co.txt
+│   │   ├── DJI_1010_co.jpg
+│   │   ├── ...
+│   │   └── DJI_13970_co.jpg
+│   └── ir
+│       ├── val_ir.txt
+│       ├── train_ir.txt
+│       ├── DJI_1010_ir.jpg
+│       ├── ...
+│       └── DJI_13970_ir.jpg
+└── labels
+    ├── color
+    │   ├── DJI_1010_co.txt
+    │   ├── ...
+    │   └── DJI_13970_co.txt
+    ├── ir
+    │   ├── DJI_1010_ir.txt
+    │   ├── ...
+    │   └── DJI_13970_ir.txt
+    └── mask_co
+        ├── DJI_1010_co.jpg
+        ├── ...
+        └── DJI_13970_co.jpg
 ```
 ## Example
 <img src="./images/segment_visualization.png" alt="drawing" width="" height=""/>
@@ -65,23 +56,7 @@ WaterMAI_dataset
 
 > The implementation is developped and successfully run on Ubuntu 20.04; Python 3.9; GPU: RTX 2060 6G VRAM
 
-Please download the weights of MSNet, RTFNet and UNet models with each modality combination and save them in `weights` folder
-
-> [**MSNet_coir_checkpoints**](https://drive.google.com/file/d/1G2Lc-YUPxoOdAMFxDmRRF0LSUrupwHFt/view?usp=sharing)
-
-> [**MSNet_condwi_checkpoints**](https://drive.google.com/file/d/1IcmFXD_276gv1U_Dlx25XiyF9mAVu9oj/view?usp=sharing)
-
-> [**MSNet_cognirndwi_checkpoints**](https://drive.google.com/file/d/196tTcM1Sk3URJ2qsYeAEZ-wKTs_VrAdG/view?usp=drive_link)
-
-> [**RTFNet_coir_checkpoints**](https://drive.google.com/file/d/1f5BGwwQcp2qFDK4Z3Qd-Z-9nTxgppWcX/view?usp=drive_link)
-
-> [**RTFNet_condwi_checkpoints**](https://drive.google.com/file/d/1wHP-sSuYxbOf0pRG3uCX-6HcShN5cUmE/view?usp=drive_link)
-
-> [**UNet_coir_checkpoints**](https://drive.google.com/file/d/12BrnJ1zAAS8CDQ1Ny2P2qlxizRxPsK4i/view?usp=drive_link)
-
-> [**UNet_condwi_checkpoints**](https://drive.google.com/file/d/1yykkT6Y5Btxexej5aIWWsDEudxy6jPDc/view?usp=drive_link)
-
-> [**UNet_cognirndwi_checkpoints**](https://drive.google.com/file/d/1vXet8v6oP8pcGz_p8_9nXgnpmpGSU9Q_/view?usp=drive_link)
+Please download the weights of MSNet, RTFNet and UNet models with each modality combination from [MODEL_CHECKPOINTS](https://drive.google.com/drive/folders/16hAC0StVlxSq59yJr8n0u7k41hdgXOvB?usp=sharing) and save them in `weights` folder
 
 To generate the modality combination images such as `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder
 
@@ -94,14 +69,14 @@ Please install Pytorch GPU appropriate with your hardware configuration.
 ## Evaluate
 To perform the evaluation of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's test set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`evaluate_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/evaluate_coir_condwi_cognirndwi.ipynb) notebook in the `notebooks` folder
 #### Prerequisite
-1. `The path in the 1st cells of notebook` should be modified properly to sucessfully run the notebook
-2. Finish runing [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder for preparing WaterMAI's test set with multiple modality combinations
+1. Please change `YOUR_PATH_TO` in the `notebook` to the location in your computer
+2. Please run [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) in the `notebooks` folder for preparing WaterMAI's test set with multiple modality combinations
 
 ## Training
-To perform the training of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's train set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`train_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/train_coir_condwi_cognirndwi.ipynb) notebook in the `notebooks` folder 
+To perform the training of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's train set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`train_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/train_coir_condwi_cognirndwi.ipynb) notebook in `notebooks` folder 
 #### Prerequisite
-1. `The path in the 1st cells of notebook` should be modified properly to sucessfully run the notebook
-2. Finish runing [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder for preparing WaterMAI's training set with multiple modality combinations
+1. Please change `YOUR_PATH_TO` in the `notebook` to the location in your computer
+2. Please run [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) in the `notebooks` folder for preparing WaterMAI's training set with multiple modality combinations
 
 ## Reference
 [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet)
