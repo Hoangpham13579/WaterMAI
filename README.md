@@ -58,7 +58,7 @@ WaterMAI_dataset
 
 Please download the weights of MSNet, RTFNet and UNet models with each modality combination from [MODEL_CHECKPOINTS](https://drive.google.com/drive/folders/16hAC0StVlxSq59yJr8n0u7k41hdgXOvB?usp=sharing) and save them in `weights` folder
 
-To generate the modality combination images such as `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder
+To generate the modality combination images such as `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/740abebd5d7df769122693cecfa8884e9016eef4/notebooks/prepare_modalities.ipynb) notebook in the `notebooks` folder
 
 To install the dependencies, please use the following
 ```
@@ -67,16 +67,16 @@ pip3 install -r requirements.txt
 Please install Pytorch GPU appropriate with your hardware configuration.
 
 ## Evaluate
-To perform the evaluation of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's test set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`evaluate_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/evaluate_coir_condwi_cognirndwi.ipynb) notebook in the `notebooks` folder
+To perform the evaluation of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's test set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`evaluate_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/740abebd5d7df769122693cecfa8884e9016eef4/notebooks/evaluate_coir_condwi_cognirndwi.ipynb) notebook in the `notebooks` folder
 #### Prerequisite
 1. Please change `YOUR_PATH_TO` in the `notebook` to the location in your computer
-2. Please run [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) in the `notebooks` folder for preparing WaterMAI's test set with multiple modality combinations
+2. Please run [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/740abebd5d7df769122693cecfa8884e9016eef4/notebooks/prepare_modalities.ipynb) in the `notebooks` folder for preparing WaterMAI's test set with multiple modality combinations
 
 ## Training
-To perform the training of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's train set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`train_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/train_coir_condwi_cognirndwi.ipynb) notebook in `notebooks` folder 
+To perform the training of  **MSNet**, **RTFNet** and **UNet** models on the WaterMAI's train set by using 3 different modality combinations `coir` (RGB  + NIR), `condwi` (RGB + NDWI) or `cognirndwi` (RGB + Green + NIR + NDWI), please following the instruction in [`train_coir_condwi_cognirndwi.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/740abebd5d7df769122693cecfa8884e9016eef4/notebooks/train_coir_condwi_cognirndwi.ipynb) notebook in `notebooks` folder 
 #### Prerequisite
 1. Please change `YOUR_PATH_TO` in the `notebook` to the location in your computer
-2. Please run [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/8cfae3dc9f8a11efa169a208cac1aa2dc2d6c041/notebooks/prepare_modalities.ipynb) in the `notebooks` folder for preparing WaterMAI's training set with multiple modality combinations
+2. Please run [`prepare_modalities.ipynb`](https://github.com/Hoangpham13579/WaterMAI/blob/740abebd5d7df769122693cecfa8884e9016eef4/notebooks/prepare_modalities.ipynb) in the `notebooks` folder for preparing WaterMAI's training set with multiple modality combinations
 
 ## Reference
 [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet)
