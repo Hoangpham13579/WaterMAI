@@ -29,18 +29,27 @@ WaterMAI_dataset
 │       ├── ...
 │       └── DJI_13970_ir.jpg
 └── labels
-    ├── color
-    │   ├── DJI_1010_co.txt
-    │   ├── ...
-    │   └── DJI_13970_co.txt
-    ├── ir
-    │   ├── DJI_1010_ir.txt
-    │   ├── ...
-    │   └── DJI_13970_ir.txt
-    └── mask_co
-        ├── DJI_1010_co.jpg
-        ├── ...
-        └── DJI_13970_co.jpg
+│    ├── color
+│    │   ├── DJI_1010_co.txt
+│    │   ├── ...
+│    │   └── DJI_13970_co.txt
+│    ├── ir
+│    │   ├── DJI_1010_ir.txt
+│    │   ├── ...
+│    │   └── DJI_13970_ir.txt
+│    └── mask_co
+│        ├── DJI_1010_co.jpg
+│        ├── ...
+│        └── DJI_13970_co.jpg
+│___testset
+     ├── images
+     │     ├── 
+     │     ├── ...
+     │     └── 
+     ├── labels
+           ├──
+           ├── ...
+           └──
 ```
 ## Example
 <img src="./images/segment_visualization.png" alt="drawing" width="" height=""/>
