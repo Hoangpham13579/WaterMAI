@@ -2,7 +2,7 @@
 
 This is the official github page of the WaterMAI dataset and benchmarking implementation described in the following paper.
 
->[Use of low-cost drones to map arbovirus vector habitats with multispectral aerial imagery to detect water bodies]().
+>[Multispectral UAV Imagery with Deep Learning for Water Body Detection and Application in Arbovirus Vector Habitat Mapping]().
 
 > Ngo Phuc Linh, Pham Viet Hoang, Bui Ngoc Long, Phan Huynh Anh Thu, Vo Bich Hien, Thirumalaisamy P. Velavan, Tran Duc Khanh
 
