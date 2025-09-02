@@ -1,13 +1,13 @@
-# WaterMAI
+# Detection of small water bodies for vector control using deep learning on multispectral imagery from unmanned aerial vehicles
 
-This is the official github page of the WaterMAI dataset and benchmarking implementation described in the following paper.
+This is the official github published datasets and implementation described in the following paper.
 
->[Multispectral UAV Imagery with Deep Learning for Water Body Detection and Application in Arbovirus Vector Habitat Mapping]().
+>[Detection of small water bodies for vector control using deep learning on multispectral imagery from unmanned aerial vehicles](https://link.springer.com/article/10.1007/s44163-025-00422-6).
 
-> Ngo Phuc Linh, Pham Viet Hoang, Bui Ngoc Long, Phan Huynh Anh Thu, Vo Bich Hien, Thirumalaisamy P. Velavan, Tran Duc Khanh
+> Phuc Linh Ngo, Viet Hoang Pham, Ngoc Long Bui, Huynh Anh Thu Phan, Bich Hien Vo, Thirumalaisamy P. Velavan, Duc Khanh Tran
 
 ## WaterMAI Dataset Specification
-Please download the WaterMAI dataset from [**WaterMAI_dataset**](https://drive.google.com/drive/folders/1-4EVZL1kFL2F72kpPst5z-YSsYrxhxeA?usp=sharing) and orthomosaic images from [**WaterMAI Orthomosaic**](https://drive.google.com/drive/folders/1ibAqoicHApP8f5G7uiAym4Lti5mGdZXH?usp=sharing)
+Please download the published WaterMAI dataset from [**WaterMAI_dataset**](https://drive.google.com/drive/folders/1-4EVZL1kFL2F72kpPst5z-YSsYrxhxeA?usp=sharing) and orthomosaic images from [**WaterMAI Orthomosaic**](https://drive.google.com/drive/folders/1ibAqoicHApP8f5G7uiAym4Lti5mGdZXH?usp=sharing)
 <img src="./images/general_process.png" alt="drawing" width="" height=""/>
 
 - Folder `co` and `ir` in `labels` folder are the bounding box labels (YOLO type) of WaterMAI dataset. The masks of those 2 folders are the same, only the file's names are different
@@ -108,9 +108,7 @@ To perform the training of  **MSNet**, **RTFNet** and **UNet** models on the Wat
 
 If you find this repo useful for your research, please consider citing our paper:
 
-```bibtex
+Ngo, P.L., Pham, V.H., Bui, N.L. et al. Detection of small water bodies for vector control using deep learning on multispectral imagery from unmanned aerial vehicles. Discov Artif Intell 5, 170 (2025). https://doi.org/10.1007/s44163-025-00422-6
 
-```
----
 
 
